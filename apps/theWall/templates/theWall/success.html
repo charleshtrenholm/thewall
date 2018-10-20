@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'theWall/main.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello, {{user.first_name}}!</h1>
+    <div class ="row justify-content-center">
+        <div class="col-lg-9 col-md-9 col-sm-11 col-xs-11 wall">
+            <div class ="messagepost">
+                <h2>Post a message</h2>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{msg.level_tag}}" role="alert">
+                        <p style="color: red; text-align: center;">{{message.message}}</p>
+                        </div>    
+                    {% endfor %}
+                {% endif %}
+                <a href="logout" class="btn btn-light" id="logout">Log out</a><br>
+                <form action="/message" method="post"><br>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea class="form-control" name="message" rows="4"></textarea><br>
+                        <input type="submit" value="Post a message" class="btn btn-primary" id="postmessage">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <h2>Messages</h2>
+    <div class="row justify-content-center" id="message_wall">
+        <div class="col-lg-9 col-md-9 col-sm-11 col-xs-11">
+            {% for message in usermessages %}
+            <div class="msg">
+                <strong>{{message.user_id.first_name}} {{message.user_id.last_name}} said:</strong>
+                <span class="time">On {{message.created_at}}</span><hr>
+                <span class="message_content">"{{message.content}}"</span>
+                {% if message.user_id.id == request.session.id %}
+                    <form action="/delete" method="post" id="deleter">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete" value="{{message.id}}">
+                        <input type="submit" value="Delete" class="btn btn-dark" id="delete">
+                    </form>
+                {% endif %}
+                <div id="accordion" role="tablist"><br>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="msgheader{{message.id}}">
+                            <a class ="collapsed btn btn-primary" data-toggle="collapse" href="#commentsmsg{{message.id}}" aria-expanded="false" aria-controls="commentsmsg{{message.id}}">View Comments</a>
+                        </div>
+                        <div id="commentsmsg{{message.id}}" class="collapse" role="tabpanel" aria-labelledby="msgheader{{message.id}}">
+                            <div class="card-body">
+                                {% for comment in message.comments.all %}
+                                <div class="comment">
+                                    <strong>{{comment.user_id.first_name}} {{comment.user_id.last_name}} said:</strong>
+                                    <span class="time">On {{comment.created_at}}</span><hr>
+                                    <span>{{comment.content}}</span>
+                                </div><br>
+                                {% endfor %}
+                            </div>
+                        </div><br>
+                    </div>
+                </div><br>
+                <form action="/comment" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="comment" class="form-control" rows="2">Your comment here!</textarea><br>
+                        <input type="hidden" name="message" value="{{message.id}}">
+                        <input type="submit" value="Add your own comment" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Arbutus+Slab|Fugaz+One');
+
+body{
+    background-image: linear-gradient(lightyellow, lightpink, lightseagreen);
+    font-family: 'Arbutus Slab', serif;
+}
+
+h1, h2{
+    text-align: center;
+    font-family: 'Fugaz One', cursive;
+}
+
+h1{
+    margin-top: 10px;
+}
+
+strong{
+    font-size: 1.2em;
+}
+
+#logout{
+    margin-left: 35px;
+}
+
+#delete{
+    /* display: inline-block; */
+    margin-left: 20px;
+    margin-bottom: 10px;
+    float: right;
+    /* margin-top: 10px; */
+}
+
+#deleter{
+    display: inline;
+}
+
+#postmessage{
+    margin-left: 35px;
+}
+
+.message_content{
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#message_wall{
+    height: 400px;
+    overflow: scroll;
+}
+
+textarea{
+    border-radius: 10px;
+    color: lightblue;
+}
+
+.msg{
+    background-color: lightcyan;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.time{
+    float: right;
+}
