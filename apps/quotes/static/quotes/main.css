@@ -1,0 +1,55 @@
+
+h3{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+hr{
+    background-color: black!important;
+}
+
+.quote{
+    margin: 10px;
+    background-color: darkcyan;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.quote-container{
+    height: 600px;
+    overflow: scroll;
+    color: white;
+}
+
+.user-quote-container{
+    background-color: darkcyan;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    
+}
+
+.quote-likes{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.quote-author{
+    text-align: center;
+}
+
+.quote-content{
+    color: white;
+    font-style: italic;
+    font-size: 30px;
+    text-align: center
+}
+
+table{
+    margin: 0px auto;
+}

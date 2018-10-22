@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'quotes/main.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Edit your Profile</h2>
+    {% for message in messages %}
+        {% if messages %}
+        <p style="text-align: center;">{{message}}</p>
+        {% endif %}
+    {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-9">
+            <form action = "/edit_submit" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" name="first_name" class="form-control" id="first_name" placeholder="{{user.first_name}}">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" name="last_name" class="form-control" id="last_name" placeholder="{{user.last_name}}">
+                    <label for="email">Email:</label>
+                    <input type="text" class="form-control" name="email" class="form control" id="email" placeholder={{user.email}}><br>
+                    <input type="submit" class="btn btn-success" value="Update">
+                    <a href="/success" class="btn btn-info">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
